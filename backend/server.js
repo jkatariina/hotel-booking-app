@@ -33,6 +33,27 @@ app.post("/bookings", async (req, res) => {
 	}
 });
 
+app.get("/bookings/:id", async (req, res) => {
+	const id = Number(req.params.id);
+
+	if (!Number.isInteger(id) || id < 1) {
+		return res.status(400).json({ message: "Booking id must be a positive whole number." });
+	}
+
+	try {
+		const booking = await getBookingById(id);
+
+		if (!booking) {
+			return res.status(404).json({ message: `Booking ${id} was not found.` });
+		}
+
+		res.json(booking);
+	} catch (error) {
+		console.error("Could not get booking:", error.message);
+		res.status(500).json({ message: "Something went wrong. Please try again." });
+	}
+});
+
 app.listen(PORT, async () => {
 	console.log(`Server running on http://localhost:${PORT}`);
 
