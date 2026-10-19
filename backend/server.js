@@ -3,7 +3,13 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const pool = require("./db");
-const { createBooking, getBookingById } = require("./dao/bookingDao");
+const {
+	getBookings,
+	createBooking,
+	getBookingById,
+	updateBooking,
+	deleteBooking,
+} = require("./dao/bookingDao");
 const { validateBooking } = require("./validation");
 
 const app = express();
@@ -50,6 +56,65 @@ app.get("/bookings/:id", async (req, res) => {
 		res.json(booking);
 	} catch (error) {
 		console.error("Could not get booking:", error.message);
+		res.status(500).json({ message: "Something went wrong. Please try again." });
+	}
+});
+
+app.get("/admin-secret-bookings", async (req, res) => {
+	try {
+		const bookings = await getBookings();
+		res.json(bookings);
+	} catch (error) {
+		console.error("Could not get bookings:", error.message);
+		res.status(500).json({ message: "Something went wrong. Please try again." });
+	}
+});
+
+app.put("/admin-secret-bookings/:id", async (req, res) => {
+	const id = Number(req.params.id);
+
+	if (!Number.isInteger(id) || id < 1) {
+		return res.status(400).json({ message: "Booking id must be a positive whole number." });
+	}
+
+	const errors = validateBooking(req.body);
+
+	if (errors.length > 0) {
+		return res.status(400).json({ message: errors.join(" "), errors });
+	}
+
+	try {
+		const updatedRows = await updateBooking(id, req.body);
+
+		if (updatedRows === 0) {
+			return res.status(404).json({ message: `Booking ${id} was not found.` });
+		}
+
+		const booking = await getBookingById(id);
+		res.json(booking);
+	} catch (error) {
+		console.error("Could not update booking:", error.message);
+		res.status(500).json({ message: "Something went wrong. Please try again." });
+	}
+});
+
+app.delete("/admin-secret-bookings/:id", async (req, res) => {
+	const id = Number(req.params.id);
+
+	if (!Number.isInteger(id) || id < 1) {
+		return res.status(400).json({ message: "Booking id must be a positive whole number." });
+	}
+
+	try {
+		const deletedRows = await deleteBooking(id);
+
+		if (deletedRows === 0) {
+			return res.status(404).json({ message: `Booking ${id} was not found.` });
+		}
+
+		res.json({ message: `Booking ${id} was deleted.` });
+	} catch (error) {
+		console.error("Could not delete booking:", error.message);
 		res.status(500).json({ message: "Something went wrong. Please try again." });
 	}
 });
