@@ -123,7 +123,8 @@ app.listen(PORT, async () => {
 	console.log(`Server running on http://localhost:${PORT}`);
 
 	try {
-		await pool.query("SELECT 1");
+		const connection = await pool.getConnection();
+		connection.release();
 		console.log("Connected to MySQL");
 	} catch (error) {
 		console.error("Could not connect to MySQL:", error.message);
