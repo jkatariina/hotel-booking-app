@@ -1,5 +1,6 @@
 import { useState } from "react";
 import RoomCard from "./components/RoomCard";
+import BookingForm from "./components/BookingForm";
 
 const ROOMS = [
 	{
@@ -34,7 +35,9 @@ function App() {
 					))}
 				</div>
 			</section>
-			{selectedRoom && <p>Selected room: {selectedRoom}</p>}
+			{selectedRoom && (
+				<BookingForm roomType={selectedRoom} onClose={() => setSelectedRoom(null)} />
+			)}
 		</main>
 	);
 }
