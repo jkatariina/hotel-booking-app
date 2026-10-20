@@ -22,12 +22,17 @@ function App() {
 	return (
 		<main>
 			<h1>Hotel Auroriel</h1>
-			<section id="rooms">
-				<h2>Choose your room</h2>
-				<p>Two room types. Tap a room to book it.</p>
-				{ROOMS.map((room) => (
-					<RoomCard key={room.type} room={room} onSelect={setSelectedRoom} />
-				))}
+			<section id="rooms" className="rooms">
+				<div className="section-heading">
+					<span className="eyebrow">Rooms</span>
+					<h2>Choose your room</h2>
+					<p>Two room types. Tap a room to book it.</p>
+				</div>
+				<div className="room-list">
+					{ROOMS.map((room) => (
+						<RoomCard key={room.type} room={room} onSelect={setSelectedRoom} />
+					))}
+				</div>
 			</section>
 			{selectedRoom && <p>Selected room: {selectedRoom}</p>}
 		</main>
