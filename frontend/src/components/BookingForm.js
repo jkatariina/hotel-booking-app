@@ -1,5 +1,13 @@
 import { useState } from "react";
 
+const getToday = () => new Date().toLocaleDateString("sv-SE");
+
+const getNextDay = (dateString) => {
+	const date = new Date(dateString);
+	date.setUTCDate(date.getUTCDate() + 1);
+	return date.toISOString().slice(0, 10);
+};
+
 function BookingForm({ roomType, onClose }) {
 	const [form, setForm] = useState({
 		room_type: roomType,
@@ -10,9 +18,18 @@ function BookingForm({ roomType, onClose }) {
 		check_out: "",
 	});
 
+	const today = getToday();
+	const minCheckOut = getNextDay(form.check_in || today);
+
 	const handleChange = (e) => {
 		const { name, value } = e.target;
-		setForm({ ...form, [name]: value });
+		const updatedForm = { ...form, [name]: value };
+
+		if (name === "check_in" && updatedForm.check_out && updatedForm.check_out <= value) {
+			updatedForm.check_out = "";
+		}
+
+		setForm(updatedForm);
 	};
 
 	const handleSubmit = (e) => {
@@ -85,6 +102,7 @@ function BookingForm({ roomType, onClose }) {
 								id="check_in"
 								name="check_in"
 								type="date"
+								min={today}
 								value={form.check_in}
 								onChange={handleChange}
 								required
@@ -96,6 +114,7 @@ function BookingForm({ roomType, onClose }) {
 								id="check_out"
 								name="check_out"
 								type="date"
+								min={minCheckOut}
 								value={form.check_out}
 								onChange={handleChange}
 								required
