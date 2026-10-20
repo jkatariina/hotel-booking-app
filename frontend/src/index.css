@@ -278,6 +278,74 @@ h1 {
 	text-align: center;
 }
 
+.confirmation {
+	max-width: 560px;
+	padding-top: 40px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.confirmation-heading {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.confirmation-heading h2 {
+	font-size: 30px;
+	font-weight: 700;
+	line-height: 1.15;
+}
+
+.confirmation-heading p {
+	color: var(--color-muted);
+}
+
+.confirmation-details {
+	margin: 0;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: 16px;
+}
+
+.confirmation-details div {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 16px;
+}
+
+.confirmation-details dt {
+	color: var(--color-muted);
+}
+
+.confirmation-details dd {
+	margin: 0;
+	font-weight: 600;
+	text-align: right;
+	overflow-wrap: anywhere;
+}
+
+.confirmation-number {
+	padding-bottom: 14px;
+	border-bottom: 1px solid var(--color-border);
+}
+
+.confirmation-number dd {
+	font-family: var(--font-heading);
+	font-size: 22px;
+	font-weight: 700;
+}
+
+.confirmation .button-secondary {
+	min-height: 52px;
+}
+
 @media (min-width: 600px) {
 	main {
 		padding: 40px 32px 72px;

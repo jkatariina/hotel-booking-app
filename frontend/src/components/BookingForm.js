@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { fetchData } from "../functions/fetchData";
 
 const getToday = () => new Date().toLocaleDateString("sv-SE");
 
@@ -8,7 +9,7 @@ const getNextDay = (dateString) => {
 	return date.toISOString().slice(0, 10);
 };
 
-function BookingForm({ roomType, onClose }) {
+function BookingForm({ roomType, onClose, onBooked }) {
 	const [form, setForm] = useState({
 		room_type: roomType,
 		guest_name: "",
@@ -32,8 +33,10 @@ function BookingForm({ roomType, onClose }) {
 		setForm(updatedForm);
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
+		const booking = await fetchData("bookings", "POST", form);
+		onBooked(booking);
 	};
 
 	return (
