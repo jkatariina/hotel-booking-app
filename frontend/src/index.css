@@ -1,4 +1,187 @@
+:root {
+	--color-background: #f7f1e8;
+	--color-surface: #ffffff;
+	--color-sand: #f1e4d3;
+	--color-border: #e6d8c5;
+	--color-text: #18202f;
+	--color-muted: #5b5560;
+	--color-accent: #4e3423;
+	--color-accent-dark: #3a2618;
+	--font-heading: "Bricolage Grotesque", system-ui, sans-serif;
+	--font-body: "Figtree", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
 body {
 	margin: 0;
-	font-family: sans-serif;
+	background: var(--color-background);
+	color: var(--color-text);
+	font-family: var(--font-body);
+	font-size: 16px;
+	line-height: 1.55;
+}
+
+h1,
+h2,
+h3 {
+	margin: 0;
+	font-family: var(--font-heading);
+	line-height: 1.12;
+}
+
+p {
+	margin: 0;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+}
+
+main {
+	padding: 32px 20px 56px;
+}
+
+h1 {
+	font-size: 32px;
+	font-weight: 700;
+}
+
+.rooms {
+	padding-top: 40px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.section-heading {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.section-heading h2 {
+	font-size: 30px;
+	font-weight: 700;
+}
+
+.section-heading p {
+	color: var(--color-muted);
+}
+
+.eyebrow {
+	font-size: 13px;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--color-muted);
+}
+
+.room-list {
+	display: grid;
+	gap: 24px;
+}
+
+.room-card {
+	display: flex;
+	flex-direction: column;
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: 16px;
+	overflow: hidden;
+}
+
+.room-card-image {
+	display: block;
+	width: 100%;
+	height: 200px;
+	padding: 0;
+	border: 0;
+	background: var(--color-sand);
+	cursor: pointer;
+}
+
+.room-card-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.room-card-image:focus-visible {
+	outline: 3px solid var(--color-accent);
+	outline-offset: -3px;
+}
+
+.room-card-body {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 18px 20px 20px;
+}
+
+.room-card-body h3 {
+	font-size: 22px;
+	font-weight: 600;
+}
+
+.room-card-body p,
+.room-card-guests {
+	color: var(--color-muted);
+}
+
+.room-card-guests {
+	font-size: 15px;
+}
+
+.button {
+	min-height: 48px;
+	margin-top: auto;
+	padding: 0 20px;
+	border: 0;
+	border-radius: 10px;
+	background: var(--color-accent);
+	color: #ffffff;
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.button:hover {
+	background: var(--color-accent-dark);
+}
+
+.button:focus-visible {
+	outline: 3px solid var(--color-accent);
+	outline-offset: 3px;
+}
+
+@media (min-width: 600px) {
+	main {
+		padding: 40px 32px 72px;
+	}
+
+	.room-list {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.room-card-image {
+		height: 220px;
+	}
+}
+
+@media (min-width: 1024px) {
+	main {
+		max-width: 1120px;
+		margin: 0 auto;
+	}
+
+	.room-card-image {
+		height: 260px;
+	}
 }
