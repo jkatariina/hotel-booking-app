@@ -19,6 +19,9 @@ function BookingForm({ roomType, onClose, onBooked }) {
 		check_out: "",
 	});
 
+	const [errorMessage, setErrorMessage] = useState("");
+	const [isSending, setIsSending] = useState(false);
+
 	const today = getToday();
 	const minCheckOut = getNextDay(form.check_in || today);
 
@@ -35,8 +38,21 @@ function BookingForm({ roomType, onClose, onBooked }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const booking = await fetchData("bookings", "POST", form);
-		onBooked(booking);
+		setErrorMessage("");
+		setIsSending(true);
+
+		try {
+			const booking = await fetchData("bookings", "POST", form);
+			onBooked(booking);
+		} catch (error) {
+			if (error instanceof TypeError) {
+				setErrorMessage("Could not reach the server. Please try again later.");
+			} else {
+				setErrorMessage(error.message);
+			}
+		} finally {
+			setIsSending(false);
+		}
 	};
 
 	return (
@@ -125,12 +141,18 @@ function BookingForm({ roomType, onClose, onBooked }) {
 						</div>
 					</div>
 
+					{errorMessage && (
+						<p className="form-error" role="alert">
+							{errorMessage}
+						</p>
+					)}
+
 					<div className="form-actions">
 						<button type="button" className="button-secondary" onClick={onClose}>
 							Cancel
 						</button>
-						<button type="submit" className="button">
-							Send booking
+						<button type="submit" className="button" disabled={isSending}>
+							{isSending ? "Sending..." : "Send booking"}
 						</button>
 					</div>
 					<p className="form-note">All fields are required.</p>
