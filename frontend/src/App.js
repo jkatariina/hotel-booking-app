@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import RoomCard from "./components/RoomCard";
+
+const ROOMS = [
+	{
+		type: "Single",
+		description: "Room for one guest with a single bed.",
+		guests: "1 guest",
+		image: "/images/enkelrum.jpg",
+	},
+	{
+		type: "Double",
+		description: "Room for two guests with a double bed.",
+		guests: "2 guests",
+		image: "/images/dubbelrum.jpg",
+	},
+];
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [selectedRoom, setSelectedRoom] = useState(null);
+
+	return (
+		<main>
+			<h1>Hotel Auroriel</h1>
+			<section id="rooms">
+				<h2>Choose your room</h2>
+				<p>Two room types. Tap a room to book it.</p>
+				{ROOMS.map((room) => (
+					<RoomCard key={room.type} room={room} onSelect={setSelectedRoom} />
+				))}
+			</section>
+			{selectedRoom && <p>Selected room: {selectedRoom}</p>}
+		</main>
+	);
 }
 
 export default App;
