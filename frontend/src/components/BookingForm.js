@@ -106,6 +106,8 @@ function BookingForm({ roomType, onClose, onBooked }) {
 								id="guest_phone"
 								name="guest_phone"
 								type="tel"
+								pattern="[0-9+\-\s]+"
+								title="Digits, spaces, + and -"
 								placeholder="070-123 45 67"
 								value={form.guest_phone}
 								onChange={handleChange}
