@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Facilities from "./components/Facilities";
 import SpaDining from "./components/SpaDining";
+import FindUs from "./components/FindUs";
 import RoomCard from "./components/RoomCard";
 import BookingForm from "./components/BookingForm";
 import BookingConfirmation from "./components/BookingConfirmation";
@@ -60,6 +61,7 @@ function App() {
 								))}
 							</div>
 						</section>
+						<FindUs />
 					</>
 				)}
 				{selectedRoom && (
