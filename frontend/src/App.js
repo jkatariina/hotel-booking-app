@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { fetchData } from "./functions/fetchData";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
@@ -29,7 +30,8 @@ function App() {
 	const [selectedRoom, setSelectedRoom] = useState(null);
 	const [confirmedBooking, setConfirmedBooking] = useState(null);
 
-	const handleBooked = (booking) => {
+	const handleBook = async (form) => {
+		const booking = await fetchData("bookings", "POST", form);
 		setSelectedRoom(null);
 		setConfirmedBooking(booking);
 		window.scrollTo(0, 0);
@@ -68,7 +70,7 @@ function App() {
 					<BookingForm
 						roomType={selectedRoom}
 						onClose={() => setSelectedRoom(null)}
-						onBooked={handleBooked}
+						onSubmit={handleBook}
 					/>
 				)}
 			</main>

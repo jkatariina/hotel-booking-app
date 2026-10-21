@@ -749,6 +749,33 @@ main {
 	border-bottom: 0;
 }
 
+.row-actions {
+	display: flex;
+	gap: 8px;
+}
+
+.button-edit {
+	min-height: 40px;
+	padding: 0 16px;
+	border: 2px solid var(--color-accent);
+	border-radius: 8px;
+	background: var(--color-surface);
+	color: var(--color-accent);
+	font: inherit;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.button-edit:hover {
+	background: var(--color-sand);
+}
+
+.button-edit:focus-visible {
+	outline: 3px solid var(--color-accent);
+	outline-offset: 2px;
+}
+
 .button-danger {
 	min-height: 40px;
 	padding: 0 16px;

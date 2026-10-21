@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { fetchData } from "../functions/fetchData";
 
 const getToday = () => new Date().toLocaleDateString("sv-SE");
 
@@ -9,19 +8,32 @@ const getNextDay = (dateString) => {
 	return date.toISOString().slice(0, 10);
 };
 
-function BookingForm({ roomType, onClose, onBooked }) {
-	const [form, setForm] = useState({
-		room_type: roomType,
-		guest_name: "",
-		guest_email: "",
-		guest_phone: "",
-		check_in: "",
-		check_out: "",
-	});
+function BookingForm({ roomType, booking, onClose, onSubmit }) {
+	const [form, setForm] = useState(
+		booking
+			? {
+					room_type: booking.room_type,
+					guest_name: booking.guest_name,
+					guest_email: booking.guest_email,
+					guest_phone: booking.guest_phone,
+					check_in: booking.check_in,
+					check_out: booking.check_out,
+				}
+			: {
+					room_type: roomType,
+					guest_name: "",
+					guest_email: "",
+					guest_phone: "",
+					check_in: "",
+					check_out: "",
+				}
+	);
 
 	const [errorMessage, setErrorMessage] = useState("");
 	const [isSending, setIsSending] = useState(false);
 
+	const title = booking ? `Edit booking #${booking.id}` : "Book a room";
+	const submitLabel = booking ? "Save changes" : "Send booking";
 	const today = getToday();
 	const minCheckOut = getNextDay(form.check_in || today);
 
@@ -42,8 +54,7 @@ function BookingForm({ roomType, onClose, onBooked }) {
 		setIsSending(true);
 
 		try {
-			const booking = await fetchData("bookings", "POST", form);
-			onBooked(booking);
+			await onSubmit(form);
 		} catch (error) {
 			if (error instanceof TypeError) {
 				setErrorMessage("Could not reach the server. Please try again later.");
@@ -59,7 +70,7 @@ function BookingForm({ roomType, onClose, onBooked }) {
 		<div className="booking-overlay">
 			<div className="booking-dialog" role="dialog" aria-modal="true" aria-labelledby="booking-title">
 				<div className="booking-header">
-					<h2 id="booking-title">Book a room</h2>
+					<h2 id="booking-title">{title}</h2>
 					<button type="button" className="close-button" aria-label="Close" onClick={onClose}>
 						<span aria-hidden="true">×</span>
 					</button>
@@ -123,7 +134,7 @@ function BookingForm({ roomType, onClose, onBooked }) {
 								id="check_in"
 								name="check_in"
 								type="date"
-								min={today}
+								min={booking ? undefined : today}
 								value={form.check_in}
 								onChange={handleChange}
 								required
@@ -154,7 +165,7 @@ function BookingForm({ roomType, onClose, onBooked }) {
 							Cancel
 						</button>
 						<button type="submit" className="button" disabled={isSending}>
-							{isSending ? "Sending..." : "Send booking"}
+							{isSending ? "Sending..." : submitLabel}
 						</button>
 					</div>
 					<p className="form-note">All fields are required.</p>

@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { fetchData } from "../functions/fetchData";
+import BookingForm from "./BookingForm";
 
 function AdminPage() {
 	const [bookings, setBookings] = useState([]);
 	const [errorMessage, setErrorMessage] = useState("");
+	const [editingBooking, setEditingBooking] = useState(null);
 
 	const loadBookings = useCallback(async () => {
 		try {
@@ -34,6 +36,12 @@ function AdminPage() {
 		} catch (error) {
 			setErrorMessage(error.message);
 		}
+	};
+
+	const handleSave = async (form) => {
+		await fetchData(`admin-secret-bookings/${editingBooking.id}`, "PUT", form);
+		setEditingBooking(null);
+		await loadBookings();
 	};
 
 	return (
@@ -75,19 +83,36 @@ function AdminPage() {
 								<td>{booking.check_in}</td>
 								<td>{booking.check_out}</td>
 								<td>
-									<button
-										type="button"
-										className="button-danger"
-										onClick={() => handleDelete(booking)}
-									>
-										Delete
-									</button>
+									<div className="row-actions">
+										<button
+											type="button"
+											className="button-edit"
+											onClick={() => setEditingBooking(booking)}
+										>
+											Edit
+										</button>
+										<button
+											type="button"
+											className="button-danger"
+											onClick={() => handleDelete(booking)}
+										>
+											Delete
+										</button>
+									</div>
 								</td>
 							</tr>
 						))}
 					</tbody>
 				</table>
 			</div>
+
+			{editingBooking && (
+				<BookingForm
+					booking={editingBooking}
+					onClose={() => setEditingBooking(null)}
+					onSubmit={handleSave}
+				/>
+			)}
 		</main>
 	);
 }
