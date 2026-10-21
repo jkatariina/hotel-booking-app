@@ -2,7 +2,9 @@ function Header() {
 	return (
 		<header className="site-header">
 			<div className="container header-inner">
-				<span className="brand">Hotel Auroriel</span>
+				<a href="/" className="brand">
+					Hotel Auroriel
+				</a>
 				<nav aria-label="Main" className="main-nav">
 					<a href="#rooms">Rooms</a>
 					<a href="#about">About</a>
