@@ -23,6 +23,19 @@ function AdminPage() {
 		loadBookings();
 	}, [loadBookings]);
 
+	const handleDelete = async (booking) => {
+		if (!window.confirm(`Delete booking ${booking.id} for ${booking.guest_name}?`)) {
+			return;
+		}
+
+		try {
+			await fetchData(`admin-secret-bookings/${booking.id}`, "DELETE");
+			await loadBookings();
+		} catch (error) {
+			setErrorMessage(error.message);
+		}
+	};
+
 	return (
 		<main className="container section admin">
 			<div className="section-heading">
@@ -48,6 +61,7 @@ function AdminPage() {
 							<th>Phone</th>
 							<th>Check-in</th>
 							<th>Check-out</th>
+							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -60,6 +74,15 @@ function AdminPage() {
 								<td>{booking.guest_phone}</td>
 								<td>{booking.check_in}</td>
 								<td>{booking.check_out}</td>
+								<td>
+									<button
+										type="button"
+										className="button-danger"
+										onClick={() => handleDelete(booking)}
+									>
+										Delete
+									</button>
+								</td>
 							</tr>
 						))}
 					</tbody>

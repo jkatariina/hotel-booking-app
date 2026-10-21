@@ -749,6 +749,28 @@ main {
 	border-bottom: 0;
 }
 
+.button-danger {
+	min-height: 40px;
+	padding: 0 16px;
+	border: 2px solid var(--color-error);
+	border-radius: 8px;
+	background: var(--color-surface);
+	color: var(--color-error);
+	font: inherit;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.button-danger:hover {
+	background: var(--color-error-background);
+}
+
+.button-danger:focus-visible {
+	outline: 3px solid var(--color-error);
+	outline-offset: 2px;
+}
+
 @media (min-width: 600px) {
 	.container {
 		padding: 0 32px;
