@@ -3,6 +3,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import About from "./components/About";
+import Facilities from "./components/Facilities";
+import SpaDining from "./components/SpaDining";
 import RoomCard from "./components/RoomCard";
 import BookingForm from "./components/BookingForm";
 import BookingConfirmation from "./components/BookingConfirmation";
@@ -44,6 +46,8 @@ function App() {
 					<>
 						<Hero />
 						<About />
+						<Facilities />
+						<SpaDining />
 						<section id="rooms" className="container section rooms">
 							<div className="section-heading">
 								<span className="eyebrow">Rooms</span>
