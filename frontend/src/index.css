@@ -705,6 +705,50 @@ main {
 	min-height: 52px;
 }
 
+.admin {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.admin h1 {
+	font-size: 30px;
+	font-weight: 700;
+}
+
+.table-wrapper {
+	overflow-x: auto;
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: 16px;
+}
+
+.admin-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 15px;
+}
+
+.admin-table th,
+.admin-table td {
+	padding: 12px 16px;
+	border-bottom: 1px solid var(--color-border);
+	text-align: left;
+	white-space: nowrap;
+}
+
+.admin-table th {
+	font-size: 13px;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--color-muted);
+}
+
+.admin-table tbody tr:last-child td {
+	border-bottom: 0;
+}
+
 @media (min-width: 600px) {
 	.container {
 		padding: 0 32px;
