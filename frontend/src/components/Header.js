@@ -1,4 +1,4 @@
-function Header() {
+function Header({ onNavigate }) {
 	return (
 		<header className="site-header">
 			<div className="container header-inner">
@@ -6,11 +6,17 @@ function Header() {
 					Hotel Auroriel
 				</a>
 				<nav aria-label="Main" className="main-nav">
-					<a href="#rooms">Rooms</a>
-					<a href="#about">About</a>
-					<a href="#contact">Contact</a>
+					<a href="#rooms" onClick={onNavigate}>
+						Rooms
+					</a>
+					<a href="#about" onClick={onNavigate}>
+						About
+					</a>
+					<a href="#contact" onClick={onNavigate}>
+						Contact
+					</a>
 				</nav>
-				<a href="#rooms" className="button header-button">
+				<a href="#rooms" className="button header-button" onClick={onNavigate}>
 					Book now
 				</a>
 			</div>
