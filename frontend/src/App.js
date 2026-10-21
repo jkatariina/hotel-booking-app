@@ -1,4 +1,11 @@
 import { useState } from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Hero from "./components/Hero";
+import About from "./components/About";
+import Facilities from "./components/Facilities";
+import SpaDining from "./components/SpaDining";
+import FindUs from "./components/FindUs";
 import RoomCard from "./components/RoomCard";
 import BookingForm from "./components/BookingForm";
 import BookingConfirmation from "./components/BookingConfirmation";
@@ -29,32 +36,44 @@ function App() {
 	};
 
 	return (
-		<main>
-			<h1>Hotel Auroriel</h1>
-			{confirmedBooking ? (
-				<BookingConfirmation booking={confirmedBooking} onBack={() => setConfirmedBooking(null)} />
-			) : (
-				<section id="rooms" className="rooms">
-					<div className="section-heading">
-						<span className="eyebrow">Rooms</span>
-						<h2>Choose your room</h2>
-						<p>Two room types. Tap a room to book it.</p>
+		<>
+			<Header />
+			<main>
+				{confirmedBooking ? (
+					<div className="container section">
+						<BookingConfirmation booking={confirmedBooking} onBack={() => setConfirmedBooking(null)} />
 					</div>
-					<div className="room-list">
-						{ROOMS.map((room) => (
-							<RoomCard key={room.type} room={room} onSelect={setSelectedRoom} />
-						))}
-					</div>
-				</section>
-			)}
-			{selectedRoom && (
-				<BookingForm
-					roomType={selectedRoom}
-					onClose={() => setSelectedRoom(null)}
-					onBooked={handleBooked}
-				/>
-			)}
-		</main>
+				) : (
+					<>
+						<Hero />
+						<About />
+						<Facilities />
+						<SpaDining />
+						<section id="rooms" className="container section rooms">
+							<div className="section-heading">
+								<span className="eyebrow">Rooms</span>
+								<h2>Choose your room</h2>
+								<p>Two room types. Tap a room to book it.</p>
+							</div>
+							<div className="room-list">
+								{ROOMS.map((room) => (
+									<RoomCard key={room.type} room={room} onSelect={setSelectedRoom} />
+								))}
+							</div>
+						</section>
+						<FindUs />
+					</>
+				)}
+				{selectedRoom && (
+					<BookingForm
+						roomType={selectedRoom}
+						onClose={() => setSelectedRoom(null)}
+						onBooked={handleBooked}
+					/>
+				)}
+			</main>
+			<Footer />
+		</>
 	);
 }
 
