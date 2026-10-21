@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Hero from "./components/Hero";
+import About from "./components/About";
 import RoomCard from "./components/RoomCard";
 import BookingForm from "./components/BookingForm";
 import BookingConfirmation from "./components/BookingConfirmation";
@@ -39,18 +41,22 @@ function App() {
 						<BookingConfirmation booking={confirmedBooking} onBack={() => setConfirmedBooking(null)} />
 					</div>
 				) : (
-					<section id="rooms" className="container section rooms">
-						<div className="section-heading">
-							<span className="eyebrow">Rooms</span>
-							<h2>Choose your room</h2>
-							<p>Two room types. Tap a room to book it.</p>
-						</div>
-						<div className="room-list">
-							{ROOMS.map((room) => (
-								<RoomCard key={room.type} room={room} onSelect={setSelectedRoom} />
-							))}
-						</div>
-					</section>
+					<>
+						<Hero />
+						<About />
+						<section id="rooms" className="container section rooms">
+							<div className="section-heading">
+								<span className="eyebrow">Rooms</span>
+								<h2>Choose your room</h2>
+								<p>Two room types. Tap a room to book it.</p>
+							</div>
+							<div className="room-list">
+								{ROOMS.map((room) => (
+									<RoomCard key={room.type} room={room} onSelect={setSelectedRoom} />
+								))}
+							</div>
+						</section>
+					</>
 				)}
 				{selectedRoom && (
 					<BookingForm
