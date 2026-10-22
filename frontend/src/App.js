@@ -37,9 +37,13 @@ function App() {
 		window.scrollTo(0, 0);
 	};
 
+	const handleNavigate = () => {
+		setConfirmedBooking(null);
+	};
+
 	return (
 		<>
-			<Header />
+			<Header onNavigate={handleNavigate} />
 			<main>
 				{confirmedBooking ? (
 					<div className="container section">
@@ -74,7 +78,7 @@ function App() {
 					/>
 				)}
 			</main>
-			<Footer />
+			<Footer onNavigate={handleNavigate} />
 		</>
 	);
 }
