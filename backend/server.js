@@ -10,7 +10,7 @@ const {
 	updateBooking,
 	deleteBooking,
 } = require("./dao/bookingDao");
-const { validateBooking } = require("./validation");
+const { validateBooking } = require("./functions/validation");
 
 const app = express();
 const PORT = process.env.PORT || 5001;
