@@ -56,11 +56,7 @@ function BookingForm({ roomType, booking, onClose, onSubmit }) {
 		try {
 			await onSubmit(form);
 		} catch (error) {
-			if (error instanceof TypeError) {
-				setErrorMessage("Could not reach the server. Please try again later.");
-			} else {
-				setErrorMessage(error.message);
-			}
+			setErrorMessage(error.message);
 		} finally {
 			setIsSending(false);
 		}

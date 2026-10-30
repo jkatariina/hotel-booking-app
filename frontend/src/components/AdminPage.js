@@ -13,11 +13,7 @@ function AdminPage() {
 			setBookings(data);
 			setErrorMessage("");
 		} catch (error) {
-			if (error instanceof TypeError) {
-				setErrorMessage("Could not reach the server. Please try again later.");
-			} else {
-				setErrorMessage(error.message);
-			}
+			setErrorMessage(error.message);
 		}
 	}, []);
 
