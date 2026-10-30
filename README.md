@@ -17,10 +17,10 @@ Guests choose a Single or Double room, fill in a booking form and get a confirma
 hotel-booking-app/
 ├── backend/
 │   ├── dao/bookingDao.js
+│   ├── functions/validation.js
 │   ├── db.js
 │   ├── schema.sql
-│   ├── server.js
-│   └── validation.js
+│   └── server.js
 └── frontend/
     ├── public/
     └── src/
